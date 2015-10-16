@@ -229,7 +229,7 @@ class AStar(object):
     def get_string(self):
         path=[]
         cell = self.end
-        while cell.parent is not self.start:
+        while cell is not self.start:
             if cell.x<cell.parent.x:
                 path.append('L')
             elif cell.x>cell.parent.x:
@@ -241,12 +241,19 @@ class AStar(object):
             else:
                 print "TO NIE MOZE BYC"
             cell = cell.parent
-        print path
+        
+        return ''.join(path[::-1])
         
 a = AStar()
 a.init_grid()
 a.process()
 a.display()
-a.get_string()
+path=a.get_string()
 #download_lab()
 
+import hashlib
+
+m = hashlib.md5()
+m.update(path)
+print '>>>>>>>>>>>>>>>>'
+print m.hexdigest()
